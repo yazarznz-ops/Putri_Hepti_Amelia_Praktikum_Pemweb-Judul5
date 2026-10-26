@@ -1,0 +1,286 @@
+/* ==========================================================================
+   Praktikum 5: Implementasi Manajemen Data dan REST API Menggunakan PHP & MySQL
+   Sistem Informasi Data Mahasiswa (SIMA) - Waktu Praktikum: 90 Menit
+   ========================================================================== */
+
+/* 1. Reset Global & CSS Variables */
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --bg-body: #f8fafc;
+    --bg-white: #ffffff;
+    --border: #e2e8f0;
+    --radius: 8px;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg-body);
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* 2. Header & Navigasi (Flexbox Layout) */
+.site-header {
+    background: linear-gradient(135deg, #1e40af, #2563eb);
+    color: #ffffff;
+    padding: 24px 0;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.brand-logo img {
+    display: block;
+    border-radius: var(--radius);
+}
+
+.site-header h1 {
+    font-size: 1.6rem;
+}
+
+.site-header p {
+    color: #bfdbfe;
+    font-size: 0.95rem;
+}
+
+.site-nav {
+    background-color: var(--bg-white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.site-nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 0;
+}
+
+.site-nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    transition: 0.2s;
+}
+
+.site-nav a:hover {
+    color: var(--primary);
+    background-color: var(--primary-light);
+}
+
+/* 3. Section & Kartu Informasi */
+main {
+    padding: 24px 0;
+}
+
+.content-section {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.section-header {
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary-light);
+}
+
+.section-header h2 {
+    font-size: 1.3rem;
+    color: var(--primary);
+}
+
+.info-grid {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.info-card {
+    flex: 1;
+    background: #f1f5f9;
+    border-left: 4px solid var(--primary);
+    padding: 14px 18px;
+    border-radius: var(--radius);
+}
+
+.info-card h3 {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.info-card p {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+/* Alert Box */
+.alert-box {
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.alert-warning {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+}
+
+/* 4. Penataan Tabel Data & Media */
+.table-responsive {
+    overflow-x: auto;
+    margin-top: 12px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.data-table th, .data-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    vertical-align: middle;
+}
+
+.data-table thead {
+    background-color: #f1f5f9;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.avatar-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.badge {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.link-email {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.link-email:hover {
+    text-decoration: underline;
+}
+
+/* Method Badges REST API */
+.method-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+}
+
+.method-get {
+    background-color: #dbeafe;
+    color: #1e40af;
+}
+
+.method-post {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.method-put {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.method-delete {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.code-block {
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 16px;
+    border-radius: var(--radius);
+    overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 0.85rem;
+}
+
+/* 5. Footer */
+.site-footer {
+    background-color: #0f172a;
+    color: #94a3b8;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.85rem;
+    margin-top: auto;
+}
+
+.site-footer a {
+    color: #60a5fa;
+    text-decoration: none;
+}
+
+/* 6. Media Query Sederhana (Breakpoint Mobile 768px) */
+@media (max-width: 768px) {
+    .header-brand {
+        flex-direction: column;
+        text-align: center;
+    }
+    .info-grid {
+        flex-direction: column;
+    }
+    .site-nav ul {
+        justify-content: center;
+    }
+}
