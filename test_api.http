@@ -28,7 +28,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "nim": "240101088",
+  "npm": "240101088",
   "nama": "Rizky Ramadhan",
   "program_studi": "Teknik Informatika",
   "angkatan": 2024,
@@ -43,13 +43,11 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "nim": "230101001",
   "nama": "Ahmad Fauzi, S.Kom.",
   "program_studi": "Teknik Informatika",
   "angkatan": 2023,
   "email": "ahmad.fauzi.update@example.com"
 }
-
 ###
 
 ### 6. DELETE Hapus Data Mahasiswa Berdasarkan ID
